@@ -6,8 +6,8 @@
 
 Vector2::Vector2(float x /* = 0.0f */, float y /* = 0.0f */)
 	: m_x(x), m_y(y),
-	m_unitX(0.0f), m_unitY(0.0f),
 	m_lengthSq(0.0f), m_length(0.0f),
+	m_unitX(0.0f), m_unitY(0.0f),
 	m_dirty(true)
 {
 	updateCache();
@@ -26,6 +26,7 @@ Vector2& Vector2::operator=(const Vector2& other)
 {
 	m_x *= other.m_x;
 	m_y *= other.m_y;
+	markDirty();
 	return *this;
 }
 
@@ -33,6 +34,7 @@ Vector2& Vector2::operator*=(const float scalar)
 {
 	m_x *= scalar;
 	m_y *= scalar;
+	markDirty();
 	return *this;
 }
 
@@ -41,16 +43,23 @@ Vector2& Vector2::operator/=(const float divisor)
 	if (0.0f == divisor) { throw std::exception("Vector2 --> Divide by zero"); }
 	m_x /= divisor;
 	m_y /= divisor;
+	markDirty();
 	return *this;
 }
 
 Vector2& Vector2::operator+=(const Vector2& other)
 {
+	m_x += other.m_x;
+	m_y += other.m_y;
+	markDirty();
 	return *this;
 }
 
 Vector2& Vector2::operator-=(const Vector2& other)
 {
+	m_x -= other.m_x;
+	m_y -= other.m_y;
+	markDirty();
 	return *this;
 }
 
@@ -97,6 +106,7 @@ void Vector2::normalise()
 	updateCache();
 	m_x = m_unitX;
 	m_y = m_unitY;
+	markDirty();
 }
 
 Vector2 Vector2::normalised()
@@ -122,8 +132,7 @@ void Vector2::updateCache()
 
 bool operator==(const Vector2& v1, const Vector2& v2)
 {
-	return v1.x() == v2.x() &&
-		v1.y() == v2.y();
+	return v1.x() == v2.x() && v1.y() == v2.y();
 }
 
 bool operator!=(const Vector2& v1, const Vector2& v2)

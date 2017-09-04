@@ -1,29 +1,54 @@
 #include "vector/vector2UnitTest.h"
 
+
+void runVector2Test();
+void runVector3Test();
+void runMatrix2Test();
+void runMatrix3Test();
+
+
 int main()
 {
-	Vector2UnitTest v2Test;
-	v2Test.Vector2Test_DefaultConstructor();
-	v2Test.Vector2Test_CopyConstructor();
-	v2Test.Vector2Test_SingleValueConstructor();
-	v2Test.Vector2Test_TimesEqualsOperator();
-	v2Test.Vector2Test_DivideEqualsOperator();
-	v2Test.Vector2Test_PlusEqualsOperator();
-	v2Test.Vector2Test_MinusEqualsOperator();
-	v2Test.Vector2Test_SetX();
-	v2Test.Vector2Test_SetY();
-	v2Test.Vector2Test_SetXY();
-	v2Test.Vector2Test_SetSingleValue();
-	v2Test.Vector2Test_LengthSq();
-	v2Test.Vector2Test_Length();
-	v2Test.Vector2Test_Normalise();
-	v2Test.Vector2Test_Normalised();
-	v2Test.Vector2Test_EqualityOperator();
-	v2Test.Vector2Test_InequalityOperator();
-	v2Test.Vector2Test_MultiplyOperator();
-	v2Test.Vector2Test_DivisionOperator();
-	v2Test.Vector2Test_AdditionOperator();
-	v2Test.Vector2Test_SubtractionOperator();
+	runVector2Test();
+	runVector3Test();
+	runMatrix2Test();
+	runMatrix3Test();
 
 	return 0;
+}
+
+void runVector2Test()
+{
+	Vector2UnitTest::vector2Test_DefaultConstructor();
+	Vector2UnitTest::vector2Test_CopyConstructor();
+	Vector2UnitTest::vector2Test_TimesEqualsOperator();
+	Vector2UnitTest::vector2Test_DivideEqualsOperator();
+	Vector2UnitTest::vector2Test_PlusEqualsOperator();
+	Vector2UnitTest::vector2Test_MinusEqualsOperator();
+	Vector2UnitTest::vector2Test_SetX();
+	Vector2UnitTest::vector2Test_SetY();
+	Vector2UnitTest::vector2Test_SetXY();
+	Vector2UnitTest::vector2Test_SetSingleValue();
+	Vector2UnitTest::vector2Test_LengthSq();
+	Vector2UnitTest::vector2Test_Length();
+	Vector2UnitTest::vector2Test_Normalise();
+	Vector2UnitTest::vector2Test_Normalised();
+	Vector2UnitTest::vector2Test_EqualityOperator();
+	Vector2UnitTest::vector2Test_InequalityOperator();
+	Vector2UnitTest::vector2Test_MultiplyOperator();
+	Vector2UnitTest::vector2Test_DivisionOperator();
+	Vector2UnitTest::vector2Test_AdditionOperator();
+	Vector2UnitTest::vector2Test_SubtractionOperator();
+}
+
+void runVector3Test()
+{
+}
+
+void runMatrix2Test()
+{
+}
+
+void runMatrix3Test()
+{
 }
