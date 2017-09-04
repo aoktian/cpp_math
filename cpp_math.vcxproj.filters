@@ -1,7 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\vector\vector2.cpp">
+      <Filter>vector</Filter>
+    </ClCompile>
+    <ClCompile Include="source\vector\vector2UnitTest.cpp">
+      <Filter>vector</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vector">
@@ -13,5 +19,13 @@
     <Filter Include="matrix">
       <UniqueIdentifier>{460afcea-6ba5-484d-b2c0-2791c4e3a6cb}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\vector\vector2.h">
+      <Filter>vector</Filter>
+    </ClInclude>
+    <ClInclude Include="source\vector\vector2UnitTest.h">
+      <Filter>vector</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
