@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include <exception>
+#include "../utility/mathUtility.h"
 
 
 Vector2::Vector2(float x /* = 0.0f */, float y /* = 0.0f */)
@@ -24,8 +25,8 @@ Vector2::~Vector2()
 
 Vector2& Vector2::operator=(const Vector2& other)
 {
-	m_x *= other.m_x;
-	m_y *= other.m_y;
+	m_x = other.m_x;
+	m_y = other.m_y;
 	markDirty();
 	return *this;
 }
@@ -113,6 +114,26 @@ Vector2 Vector2::normalised()
 {
 	updateCache();
 	return Vector2(m_unitX, m_unitY);
+}
+
+
+void Vector2::rotate(float degrees)
+{
+	float rads = MathUtil::radians(degrees);
+	float cs = static_cast<float>(cos(rads));
+	float sn = static_cast<float>(sin(rads));
+
+	float x = m_x * cs - m_y * sn;
+	m_y = m_x * sn + m_y * cs;
+	m_x = x;
+	markDirty();
+}
+
+Vector2 Vector2::rotated(float degrees)
+{
+	Vector2 r(m_x, m_y);
+	r.rotate(degrees);
+	return r;
 }
 
 void Vector2::updateCache()

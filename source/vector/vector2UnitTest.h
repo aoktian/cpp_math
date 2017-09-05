@@ -33,6 +33,9 @@ public:
 	static void vector2Test_Normalise();
 	static void vector2Test_Normalised();
 
+	static void vector2Test_Rotate();
+	static void vector2Test_Rotated();
+
 	static void vector2Test_EqualityOperator();
 	static void vector2Test_InequalityOperator();
 	static void vector2Test_MultiplyOperator();

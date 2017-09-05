@@ -29,7 +29,7 @@ void Vector2UnitTest::vector2Test_DefaultConstructor()
 
 	Vector2 v2 = { 5.0f, 20.0f };
 	assert(v2.x() == 5.0f);
-	assert(v2.y() == 2.0f);
+	assert(v2.y() == 20.0f);
 }
 
 void Vector2UnitTest::vector2Test_CopyConstructor()
@@ -43,8 +43,8 @@ void Vector2UnitTest::vector2Test_AssignmentOperator()
 {
 	Vector2 v1(10.0f, 20.0f);
 	Vector2 v2 = v1;
-	assert(Vector2(v2).x() == 10.0f);
-	assert(Vector2(v2).y() == 20.0f);
+	assert(v2.x() == 10.0f);
+	assert(v2.y() == 20.0f);
 }
 
 void Vector2UnitTest::vector2Test_TimesEqualsOperator()
@@ -157,6 +157,30 @@ void Vector2UnitTest::vector2Test_Normalised()
 	assert(fabs(v1.normalised().x()) < TOLERANCE);
 	assert(fabs(v1.normalised().y() - 1.0f) < TOLERANCE);
 	assert(fabs(v1.normalised().length() - 1.0f) < TOLERANCE);
+}
+
+void Vector2UnitTest::vector2Test_Rotate()
+{
+	Vector2 v1(1.0f, 0.0f);
+	v1.rotate(90.0f);
+	assert(fabs(v1.x()) < TOLERANCE);
+	assert(fabs(v1.y() - 1.0f) < TOLERANCE);
+
+	v1.rotate(-45.0f);
+	assert(fabs(v1.x() - 0.707106f) < TOLERANCE);
+	assert(fabs(v1.y() - 0.707106f) < TOLERANCE);
+}
+
+void Vector2UnitTest::vector2Test_Rotated()
+{
+	Vector2 v1(1.0f, 0.0f);
+	Vector2 v2 = v1.rotated(90.0f);
+	assert(fabs(v2.x()) < TOLERANCE);
+	assert(fabs(v2.y() - 1.0f) < TOLERANCE);
+
+	v2 = v1.rotated(45.0f);
+	assert(fabs(v2.x() - 0.707106f) < TOLERANCE);
+	assert(fabs(v2.y() - 0.707106f) < TOLERANCE);
 }
 
 void Vector2UnitTest::vector2Test_EqualityOperator()

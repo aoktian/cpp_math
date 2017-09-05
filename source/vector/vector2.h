@@ -30,6 +30,9 @@ public:
 	void normalise();
 	Vector2 normalised();
 	
+	void rotate(float degrees);
+	Vector2 rotated(float degrees);
+
 private:
 
 	float m_x;

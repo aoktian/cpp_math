@@ -116,6 +116,7 @@
     <ClCompile Include="source\vector\vector2UnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\utility\mathUtility.h" />
     <ClInclude Include="source\vector\vector2.h" />
     <ClInclude Include="source\vector\vector2UnitTest.h" />
   </ItemGroup>

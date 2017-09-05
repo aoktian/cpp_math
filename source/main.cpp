@@ -33,6 +33,8 @@ void runVector2Test()
 	Vector2UnitTest::vector2Test_Length();
 	Vector2UnitTest::vector2Test_Normalise();
 	Vector2UnitTest::vector2Test_Normalised();
+	Vector2UnitTest::vector2Test_Rotate();
+	Vector2UnitTest::vector2Test_Rotated();
 	Vector2UnitTest::vector2Test_EqualityOperator();
 	Vector2UnitTest::vector2Test_InequalityOperator();
 	Vector2UnitTest::vector2Test_MultiplyOperator();
