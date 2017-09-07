@@ -27,7 +27,7 @@ Vector2& Vector2::operator=(const Vector2& other)
 {
 	m_x = other.m_x;
 	m_y = other.m_y;
-	markDirty();
+	m_dirty = true;
 	return *this;
 }
 
@@ -35,7 +35,7 @@ Vector2& Vector2::operator*=(const float scalar)
 {
 	m_x *= scalar;
 	m_y *= scalar;
-	markDirty();
+	m_dirty = true;
 	return *this;
 }
 
@@ -44,7 +44,7 @@ Vector2& Vector2::operator/=(const float divisor)
 	if (0.0f == divisor) { throw std::exception("Vector2 --> Divide by zero"); }
 	m_x /= divisor;
 	m_y /= divisor;
-	markDirty();
+	m_dirty = true;
 	return *this;
 }
 
@@ -52,7 +52,7 @@ Vector2& Vector2::operator+=(const Vector2& other)
 {
 	m_x += other.m_x;
 	m_y += other.m_y;
-	markDirty();
+	m_dirty = true;
 	return *this;
 }
 
@@ -60,34 +60,34 @@ Vector2& Vector2::operator-=(const Vector2& other)
 {
 	m_x -= other.m_x;
 	m_y -= other.m_y;
-	markDirty();
+	m_dirty = true;
 	return *this;
 }
 
 void Vector2::setX(float val)
 {
 	m_x = val;
-	markDirty();
+	m_dirty = true;
 }
 
 void Vector2::setY(float val)
 {
 	m_y = val;
-	markDirty();
+	m_dirty = true;
 }
 
 void Vector2::set(float x, float y)
 {
 	m_x = x;
 	m_y = y;
-	markDirty();
+	m_dirty = true;
 }
 
 void Vector2::set(float val)
 {
 	m_x = val;
 	m_y = val;
-	markDirty();
+	m_dirty = true;
 }
 
 float Vector2::lengthSq()
@@ -107,7 +107,7 @@ void Vector2::normalise()
 	updateCache();
 	m_x = m_unitX;
 	m_y = m_unitY;
-	markDirty();
+	m_dirty = true;
 }
 
 Vector2 Vector2::normalised()
@@ -126,7 +126,7 @@ void Vector2::rotate(float degrees)
 	float x = m_x * cs - m_y * sn;
 	m_y = m_x * sn + m_y * cs;
 	m_x = x;
-	markDirty();
+	m_dirty = true;
 }
 
 Vector2 Vector2::rotated(float degrees)
@@ -138,7 +138,7 @@ Vector2 Vector2::rotated(float degrees)
 
 void Vector2::updateCache()
 {
-	if (dirty())
+	if (m_dirty)
 	{
 		m_lengthSq = m_x * m_x + m_y * m_y;
 		m_length = static_cast<float>(sqrt(m_lengthSq));
@@ -146,7 +146,7 @@ void Vector2::updateCache()
 		m_unitX = m_length != 0.0f ? m_x / m_length : 0.0f;
 		m_unitY = m_length != 0.0f ? m_y / m_length : 0.0f;
 			
-		markClean();
+		m_dirty = false;
 	}
 }
 

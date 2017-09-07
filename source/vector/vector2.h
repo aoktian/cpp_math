@@ -46,11 +46,8 @@ private:
 	float m_unitX;
 	float m_unitY;
 
-	// Dirty flag for cached unit vector
+	// Dirty flag for cached unit vector, lengthSq, length
 	bool m_dirty;
-	inline void markDirty() { m_dirty = true; }
-	inline void markClean() { m_dirty = false; }
-	inline bool dirty() const { return m_dirty; }
 	
 	void updateCache();
 
