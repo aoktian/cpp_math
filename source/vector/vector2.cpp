@@ -1,7 +1,6 @@
 #include "vector2.h"
 
 #include <math.h>
-#include <exception>
 #include "../utility/mathUtility.h"
 
 
@@ -41,7 +40,11 @@ Vector2& Vector2::operator*=(const float scalar)
 
 Vector2& Vector2::operator/=(const float divisor)
 {
-	if (0.0f == divisor) { throw std::exception("Vector2 --> Divide by zero"); }
+	if (0.0f == divisor)
+	{
+		return *this;
+	}
+
 	m_x /= divisor;
 	m_y /= divisor;
 	m_dirty = true;
@@ -90,6 +93,13 @@ void Vector2::set(float val)
 	m_dirty = true;
 }
 
+void Vector2::set(const Vector2& other)
+{
+	m_x = other.m_x;
+	m_y = other.m_y;
+	m_dirty = true;
+}
+
 float Vector2::lengthSq()
 {
 	updateCache();
@@ -115,7 +125,6 @@ Vector2 Vector2::normalised()
 	updateCache();
 	return Vector2(m_unitX, m_unitY);
 }
-
 
 void Vector2::rotate(float degrees)
 {
@@ -173,7 +182,11 @@ Vector2 operator*(const float scalar, const Vector2& v)
 
 Vector2 operator/(const Vector2& v, const float divisor)
 {
-	if (0.0f == divisor) { throw std::exception("Vector2 --> Divide by zero"); }
+	if (0.0f == divisor) 
+	{ 
+		return Vector2();
+	}
+
 	return Vector2(v.x() / divisor, v.y() / divisor);
 }
 

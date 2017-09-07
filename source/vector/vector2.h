@@ -23,6 +23,7 @@ public:
 	void setY(float val);
 	void set(float x, float y);
 	void set(float val);
+	void set(const Vector2& other);
 
 	float lengthSq();
 	float length();

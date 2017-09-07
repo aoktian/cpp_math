@@ -25,14 +25,13 @@ public:
 	void setZ(float val);
 	void set(float x, float y, float z);
 	void set(float val);
+	void set(const Vector3& other);
 
 	float lengthSq();
 	float length();
 
 	void normalise();
 	Vector3 normalised();
-
-	// Rotate
 
 private:
 

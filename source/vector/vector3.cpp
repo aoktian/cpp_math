@@ -1,7 +1,6 @@
 #include "vector3.h"
 
 #include <math.h>
-#include <exception>
 #include "../utility/mathUtility.h"
 
 
@@ -43,7 +42,10 @@ Vector3& Vector3::operator*=(const float scalar)
 
 Vector3& Vector3::operator/=(const float divisor)
 {
-	if (0.0f == divisor) { throw std::exception("Vector3 --> Divide by zero"); }
+	if (0.0f == divisor)
+	{
+		return *this;
+	}
 	m_x /= divisor;
 	m_y /= divisor;
 	m_z /= divisor;
@@ -100,6 +102,14 @@ void Vector3::set(float val)
 	m_x = val;
 	m_y = val;
 	m_z = val;
+	m_dirty = true;
+}
+
+void Vector3::set(const Vector3& other)
+{
+	m_x = other.m_x;
+	m_y = other.m_y;
+	m_z = other.m_z;
 	m_dirty = true;
 }
 
@@ -170,7 +180,11 @@ Vector3 operator*(const float scalar, const Vector3& v)
 
 Vector3 operator/(const Vector3& v, const float divisor)
 {
-	if (0.0f == divisor) { throw std::exception("Vector3 --> Divide by zero"); }
+	if (0.0f == divisor)
+	{
+		return Vector3();
+	}
+
 	return Vector3(v.x() / divisor, v.y() / divisor, v.z() / divisor);
 }
 
