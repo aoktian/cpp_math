@@ -6,12 +6,6 @@
 class Vector2UnitTest
 {
 public:
-	
-	Vector2UnitTest();
-	~Vector2UnitTest();
-
-	Vector2UnitTest(const Vector2UnitTest& other) = delete;
-	Vector2UnitTest operator=(const Vector2UnitTest& other) = delete;
 
 	static void vector2Test_DefaultConstructor();
 	static void vector2Test_CopyConstructor();

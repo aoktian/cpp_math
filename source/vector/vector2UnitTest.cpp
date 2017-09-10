@@ -6,14 +6,6 @@
 
 const float Vector2UnitTest::TOLERANCE = 0.000001f;
 
-Vector2UnitTest::Vector2UnitTest()
-{
-}
-
-Vector2UnitTest::~Vector2UnitTest()
-{
-}
-
 void Vector2UnitTest::vector2Test_DefaultConstructor()
 {
 	assert(Vector2().x() == 0.0f);
