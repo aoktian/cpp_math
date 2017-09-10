@@ -28,6 +28,10 @@ public:
 	static void vector3Test_Normalise();
 	static void vector3Test_Normalised();
 
+	static void vector3Test_DotProduct();
+	static void vector3Test_CrossProduct();
+	static void vector3Test_Angle();
+
 	static void vector3Test_EqualityOperator();
 	static void vector3Test_InequalityOperator();
 	static void vector3Test_MultiplyOperator();

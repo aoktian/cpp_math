@@ -2,6 +2,7 @@
 
 #include <assert.h>
 #include <math.h>
+#include "../utility/mathUtility.h"
 
 
 const float Vector3UnitTest::TOLERANCE = 0.000001f;
@@ -185,6 +186,52 @@ void Vector3UnitTest::vector3Test_Normalised()
 	assert(fabs(v1.normalised().z()) < TOLERANCE);
 	assert(fabs(v1.normalised().length() - 1.0f) < TOLERANCE);
 }
+
+void Vector3UnitTest::vector3Test_DotProduct()
+{
+	Vector3 v1(10.0f, 0.0f, 0.0f);
+	Vector3 v2(0.0f, 10.0f, 0.0f);
+	assert(v1.dotProduct(v2) == 0.0f);
+	assert(Vector3::dotProduct(v1, v2) == 0.0f);
+	assert(v2.dotProduct(v1) == 0.0f);
+	assert(Vector3::dotProduct(v2, v1) == 0.0f);
+	
+	v1.set(100.0f, 50.0f, 25.0f);
+	v2.set(25.0f, 50.0f, 100.0f);
+	assert(fabs(v1.dotProduct(v2) - 0.5714285f) < TOLERANCE);
+	assert(fabs(Vector3::dotProduct(v1, v2) - 0.5714285f) < TOLERANCE);
+	assert(fabs(v2.dotProduct(v1) - 0.5714285f) < TOLERANCE);
+	assert(fabs(Vector3::dotProduct(v2, v1) - 0.5714285f) < TOLERANCE);
+}
+
+void Vector3UnitTest::vector3Test_CrossProduct()
+{
+	Vector3 v1(10.0f, 0.0f, 0.0f);
+	Vector3 v2(0.0f, 10.0f, 0.0f);
+	assert(v1.crossProduct(v2).x() == 0.0f);
+	assert(v1.crossProduct(v2).y() == 0.0f);
+	assert(v1.crossProduct(v2).z() == 1.0f);
+	assert(v2.crossProduct(v1).x() == 0.0f);
+	assert(v2.crossProduct(v1).y() == 0.0f);
+	assert(v2.crossProduct(v1).z() == -1.0f);
+	assert(Vector3::crossProduct(v1, v2).x() == 0.0f);
+	assert(Vector3::crossProduct(v1, v2).y() == 0.0f);
+	assert(Vector3::crossProduct(v1, v2).z() == 1.0f);
+	assert(Vector3::crossProduct(v2, v1).x() == 0.0f);
+	assert(Vector3::crossProduct(v2, v1).y() == 0.0f);
+	assert(Vector3::crossProduct(v2, v1).z() == -1.0f);
+}
+
+void Vector3UnitTest::vector3Test_Angle()
+{
+	Vector3 v1(10.0f, 0.0f, 0.0f);
+	Vector3 v2(0.0f, 10.0f, 0.0f);
+	assert(fabs(MathUtil::degrees(v1.angle(v2)) - 90.0f) < TOLERANCE);
+	assert(fabs(MathUtil::degrees(v1.angle(v2)) - 90.0f) < TOLERANCE);
+	assert(fabs(MathUtil::degrees(v1.angle(v2)) - 90.0f) < TOLERANCE);
+	assert(fabs(MathUtil::degrees(v1.angle(v2)) - 90.0f) < TOLERANCE);
+}
+
 
 void Vector3UnitTest::vector3Test_EqualityOperator()
 {

@@ -67,6 +67,9 @@ void runVector3Test()
 	Vector3UnitTest::vector3Test_DivisionOperator();
 	Vector3UnitTest::vector3Test_AdditionOperator();
 	Vector3UnitTest::vector3Test_SubtractionOperator();
+	Vector3UnitTest::vector3Test_DotProduct();
+	Vector3UnitTest::vector3Test_CrossProduct();
+	Vector3UnitTest::vector3Test_Angle();
 }
 
 void runMatrix4Test()

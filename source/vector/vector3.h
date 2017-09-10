@@ -16,6 +16,8 @@ public:
 	Vector3& operator+=(const Vector3& other);
 	Vector3& operator-=(const Vector3& other);
 
+	// Ste - TODO - Matrix multiplication overload
+
 	inline float x() const { return m_x; }
 	inline float y() const { return m_y; }
 	inline float z() const { return m_z; }
@@ -27,12 +29,21 @@ public:
 	void set(float val);
 	void set(const Vector3& other);
 
-	float lengthSq();
-	float length();
+	float lengthSq() const;
+	float length() const;
 
 	void normalise();
-	Vector3 normalised();
+	Vector3 normalised() const;
 
+	float dotProduct(const Vector3& other) const;
+	static float dotProduct(const Vector3& v1, const Vector3& v2);
+	
+	Vector3 crossProduct(const Vector3& other) const;
+	static Vector3 crossProduct(const Vector3& v1, const Vector3& v2);
+
+	float angle(const Vector3& other) const;
+	static float angle(const Vector3& v1, const Vector3& v2);
+	
 private:
 
 	float m_x;
@@ -40,18 +51,18 @@ private:
 	float m_z;
 
 	// Cached length, length squared
-	float m_lengthSq;
-	float m_length;
+	mutable float m_lengthSq;
+	mutable float m_length;
 
 	// Cached unit vector values
-	float m_unitX;
-	float m_unitY;
-	float m_unitZ;
+	mutable float m_unitX;
+	mutable float m_unitY;
+	mutable float m_unitZ;
 
 	// Dirty flag for cached values
-	bool m_dirty;
+	mutable bool m_dirty;
 
-	void updateCache();
+	void updateCache() const;
 
 };
 
@@ -64,3 +75,5 @@ Vector3 operator/(const Vector3& v, const float divisor);
 Vector3 operator/(const float divisor, const Vector3& v);
 Vector3 operator+(const Vector3& v1, const Vector3& v2);
 Vector3 operator-(const Vector3& v1, const Vector3& v2);
+
+// Ste - TODO - Matrix multiplication overloads

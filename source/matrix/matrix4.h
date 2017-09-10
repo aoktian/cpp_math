@@ -35,6 +35,7 @@ private:
 	friend Matrix4 operator+(const Matrix4& m1, const Matrix4& m2);
 	friend Matrix4 operator-(const Matrix4& m1, const Matrix4& m2);
 	friend Matrix4 operator*(const Matrix4& m1, const Matrix4& m2);
+	friend class Matrix4UnitTest;
 
 	float m_ix, m_jx, m_kx, m_tx;
 	float m_iy, m_jy, m_ky, m_ty;

@@ -113,13 +113,13 @@ void Vector3::set(const Vector3& other)
 	m_dirty = true;
 }
 
-float Vector3::lengthSq()
+float Vector3::lengthSq() const
 {
 	updateCache();
 	return m_lengthSq;
 }
 
-float Vector3::length()
+float Vector3::length() const 
 {
 	updateCache();
 	return m_length;
@@ -134,13 +134,13 @@ void Vector3::normalise()
 	m_dirty = true;
 }
 
-Vector3 Vector3::normalised()
+Vector3 Vector3::normalised() const
 {
 	updateCache();
 	return Vector3(m_unitX, m_unitY, m_unitZ);
 }
 
-void Vector3::updateCache()
+void Vector3::updateCache() const
 {
 	if (m_dirty)
 	{
@@ -153,6 +153,45 @@ void Vector3::updateCache()
 
 		m_dirty = false;
 	}
+}
+
+float Vector3::dotProduct(const Vector3& other) const
+{
+	auto unitV1 = normalised();
+	auto unitV2 = other.normalised();
+	return unitV1.m_x * unitV2.m_x + 
+		unitV1.m_y * unitV2.m_y + 
+		unitV1.m_z * unitV2.m_z;
+}
+
+float Vector3::dotProduct(const Vector3& v1, const Vector3& v2)
+{
+	return v1.dotProduct(v2);
+}
+
+Vector3 Vector3::crossProduct(const Vector3& other) const
+{
+	return Vector3(m_y * other.m_z - m_z * other.m_y,
+		m_z * other.m_x - m_x * other.m_z,
+		m_x * other.m_y - m_y * other.m_x
+		).normalised();
+}
+
+Vector3 Vector3::crossProduct(const Vector3& v1, const Vector3& v2)
+{
+	return v1.crossProduct(v2);
+}
+
+float Vector3::angle(const Vector3& other) const
+{
+	auto lenV1 = length();
+	auto lenV2 = other.length();
+	return static_cast<float>(acos(dotProduct(other) / (lenV1 * lenV2)));
+}
+
+float Vector3::angle(const Vector3& v1, const Vector3& v2)
+{
+	return v1.angle(v2);
 }
 
 
