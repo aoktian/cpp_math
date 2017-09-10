@@ -1,5 +1,7 @@
 #pragma once
 
+class Vector3;
+
 
 class Matrix4
 {
@@ -16,17 +18,19 @@ public:
 	
 	Matrix4& toIdentity();
 
-	static Matrix4 identityMatrix();
-	static Matrix4 scaleMatrix(float scale);
-	static Matrix4 scaleMatrix(float sx, float sy, float sz);
-	static Matrix4 yawMatrix(float yaw);
-	static Matrix4 pitchMatrix(float pitch);
-	static Matrix4 rollMatrix(float roll);
-	static Matrix4 rotationMatrix(float yaw, float pitch, float roll);
-	static Matrix4 translationMatrix(float x, float y, float z);
+	static Matrix4 identity();
+	static Matrix4 scale(float s);
+	static Matrix4 scale(float sx, float sy, float sz);
+	static Matrix4 scale(const Vector3& s);
+	static Matrix4 yaw(float y);
+	static Matrix4 pitch(float p);
+	static Matrix4 roll(float r);
+	static Matrix4 rotation(float y, float p, float r);
+	static Matrix4 rotation(const Vector3& r);
+	static Matrix4 translation(float x, float y, float z);
+	static Matrix4 translation(const Vector3& t);
 
 private:
-
 
 	friend Matrix4 operator+(const Matrix4& m1, const Matrix4& m2);
 	friend Matrix4 operator-(const Matrix4& m1, const Matrix4& m2);

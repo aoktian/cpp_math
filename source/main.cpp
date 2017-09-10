@@ -1,3 +1,4 @@
+#include "matrix/matrix4UnitTest.h"
 #include "vector/vector2UnitTest.h"
 #include "vector/vector3UnitTest.h"
 

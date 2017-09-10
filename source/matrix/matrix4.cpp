@@ -1,6 +1,7 @@
 #include "matrix4.h"
 
 #include <math.h>
+#include "../vector/vector3.h"
 
 
 Matrix4::Matrix4()
@@ -83,7 +84,7 @@ Matrix4& Matrix4::toIdentity()
 	return *this;
 }
 
-Matrix4 Matrix4::identityMatrix()
+Matrix4 Matrix4::identity()
 {
 	Matrix4 result;
 	result.m_ix = 1.0f; result.m_jx = 0.0f; result.m_kx = 0.0f; result.m_tx = 0.0f;
@@ -93,7 +94,7 @@ Matrix4 Matrix4::identityMatrix()
 	return result;
 }
 
-Matrix4 Matrix4::scaleMatrix(float s)
+Matrix4 Matrix4::scale(float s)
 {
 	Matrix4 result;
 	result.m_ix = s;
@@ -102,7 +103,7 @@ Matrix4 Matrix4::scaleMatrix(float s)
 	return result;
 }
 
-Matrix4 Matrix4::scaleMatrix(float sx, float sy, float sz)
+Matrix4 Matrix4::scale(float sx, float sy, float sz)
 {
 	Matrix4 result;
 	result.m_ix = sx;
@@ -111,11 +112,16 @@ Matrix4 Matrix4::scaleMatrix(float sx, float sy, float sz)
 	return result;
 }
 
-Matrix4 Matrix4::yawMatrix(float yaw)
+Matrix4 Matrix4::scale(const Vector3& s)
+{
+	return scale(s.x(), s.y(), s.z());
+}
+
+Matrix4 Matrix4::yaw(float y)
 {
 	Matrix4 result;
-	float sn = static_cast<float>(cos(yaw));
-	float cs = static_cast<float>(sin(yaw));
+	float sn = static_cast<float>(cos(y));
+	float cs = static_cast<float>(sin(y));
 	result.m_ix = cs;
 	result.m_iz = -sn;
 	result.m_kx = sn;
@@ -123,11 +129,11 @@ Matrix4 Matrix4::yawMatrix(float yaw)
 	return result;
 }
 
-Matrix4 Matrix4::pitchMatrix(float pitch)
+Matrix4 Matrix4::pitch(float p)
 {
 	Matrix4 result;
-	float sn = static_cast<float>(cos(pitch));
-	float cs = static_cast<float>(sin(pitch));
+	float sn = static_cast<float>(cos(p));
+	float cs = static_cast<float>(sin(p));
 	result.m_jy = cs;
 	result.m_jz = sn;
 	result.m_ky = -sn;
@@ -135,11 +141,11 @@ Matrix4 Matrix4::pitchMatrix(float pitch)
 	return result;
 }
 
-Matrix4 Matrix4::rollMatrix(float roll)
+Matrix4 Matrix4::roll(float r)
 {
 	Matrix4 result;
-	float sn = static_cast<float>(cos(roll));
-	float cs = static_cast<float>(sin(roll));
+	float sn = static_cast<float>(cos(r));
+	float cs = static_cast<float>(sin(r));
 	result.m_ix = cs;
 	result.m_iy = sn;
 	result.m_jx = -sn;
@@ -147,34 +153,44 @@ Matrix4 Matrix4::rollMatrix(float roll)
 	return result;
 }
 
-Matrix4 Matrix4::rotationMatrix(float yaw, float pitch, float roll)
+Matrix4 Matrix4::rotation(float yaw, float pitch, float roll)
 {
 	Matrix4 result;
 	if (yaw)
 	{
-		result = Matrix4::yawMatrix(yaw);
-		if (pitch) { result *= Matrix4::pitchMatrix(pitch); }
-		if (roll) { result *= Matrix4::rollMatrix(roll); }
+		result = Matrix4::yaw(yaw);
+		if (pitch) { result *= Matrix4::pitch(pitch); }
+		if (roll) { result *= Matrix4::roll(roll); }
 	}
 	else if (pitch)
 	{
-		result = Matrix4::pitchMatrix(pitch);
-		if (roll) { result *= Matrix4::rollMatrix(roll); }
+		result = Matrix4::pitch(pitch);
+		if (roll) { result *= Matrix4::roll(roll); }
 	}
 	else if (roll)
 	{
-		result = Matrix4::rollMatrix(roll);
+		result = Matrix4::roll(roll);
 	}
 	return result;
 }
 
-Matrix4 Matrix4::translationMatrix(float x, float y, float z)
+Matrix4 Matrix4::rotation(const Vector3& r)
+{
+	return rotation(r.x(), r.y(), r.z());
+}
+
+Matrix4 Matrix4::translation(float x, float y, float z)
 {
 	Matrix4 result;
 	result.m_tx = x;
 	result.m_ty = y;
 	result.m_tz = z;
 	return result;
+}
+
+Matrix4 Matrix4::translation(const Vector3& t)
+{
+	return translation(t.x(), t.y(), t.z());
 }
 
 
