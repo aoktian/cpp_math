@@ -1,6 +1,7 @@
 #include "vector3.h"
 
 #include <math.h>
+#include "../matrix/matrix4.h"
 #include "../utility/mathUtility.h"
 
 
@@ -22,51 +23,67 @@ Vector3::~Vector3()
 {
 }
 
-Vector3& Vector3::operator=(const Vector3& other)
+Vector3& Vector3::operator=(const Vector3& v)
 {
-	m_x = other.m_x;
-	m_y = other.m_y;
-	m_z = other.m_z;
+	m_x = v.m_x;
+	m_y = v.m_y;
+	m_z = v.m_z;
 	m_dirty = true;
 	return *this;
 }
 
-Vector3& Vector3::operator*=(const float scalar)
+Vector3& Vector3::operator*=(const float s)
 {
-	m_x *= scalar;
-	m_y *= scalar;
-	m_z *= scalar;
+	m_x *= s;
+	m_y *= s;
+	m_z *= s;
 	m_dirty = true;
 	return *this;
 }
 
-Vector3& Vector3::operator/=(const float divisor)
+Vector3& Vector3::operator*=(const Vector3& v)
 {
-	if (0.0f == divisor)
+	m_x *= v.m_x;
+	m_y *= v.m_y;
+	m_z *= v.m_z;
+	m_dirty = true;
+	return *this;
+}
+
+Vector3& Vector3::operator*=(const Matrix4& m)
+{
+	// Ste - TODO
+	m_dirty = true;
+	return *this;
+}
+
+Vector3& Vector3::operator/=(const float d)
+{
+	if (0.0f == d)
 	{
 		return *this;
 	}
-	m_x /= divisor;
-	m_y /= divisor;
-	m_z /= divisor;
+	m_x /= d;
+	m_y /= d;
+	m_z /= d;
 	m_dirty = true;
 	return *this;
 }
 
-Vector3& Vector3::operator+=(const Vector3& other)
+Vector3& Vector3::operator+=(const Vector3& v)
 {
-	m_x += other.m_x;
-	m_y += other.m_y;
-	m_z += other.m_z;
+	m_x += v.m_x;
+	m_y += v.m_y;
+	m_z += v.m_z;
 	m_dirty = true;
 	return *this;
 }
 
-Vector3& Vector3::operator-=(const Vector3& other)
+Vector3& Vector3::operator-=(const Vector3& v)
 {
-	m_x -= other.m_x;
-	m_y -= other.m_y;
-	m_z -= other.m_z;
+	m_x -= v.m_x;
+	m_y -= v.m_y;
+	m_z -= v.m_z;
 	m_dirty = true;
 	return *this;
 }
@@ -173,8 +190,8 @@ Vector3 Vector3::crossProduct(const Vector3& other) const
 {
 	return Vector3(m_y * other.m_z - m_z * other.m_y,
 		m_z * other.m_x - m_x * other.m_z,
-		m_x * other.m_y - m_y * other.m_x
-		).normalised();
+		m_x * other.m_y - m_y * other.m_x)
+		.normalised();
 }
 
 Vector3 Vector3::crossProduct(const Vector3& v1, const Vector3& v2)
@@ -198,8 +215,8 @@ float Vector3::angle(const Vector3& v1, const Vector3& v2)
 bool operator==(const Vector3& v1, const Vector3& v2)
 {
 	return v1.x() == v2.x() && 
-			v1.y() == v2.y() &&
-			v1.z() == v2.z();
+		v1.y() == v2.y() &&
+		v1.z() == v2.z();
 }
 
 bool operator!=(const Vector3& v1, const Vector3& v2)
@@ -207,37 +224,65 @@ bool operator!=(const Vector3& v1, const Vector3& v2)
 	return !(v1 == v2);
 }
 
-Vector3 operator*(const Vector3& v, const float scalar)
+Vector3 operator*(const Vector3& v, const float s)
 {
-	return Vector3(v.x() * scalar, v.y() * scalar, v.z() * scalar);
+	return Vector3(v.x() * s, 
+		v.y() * s, 
+		v.z() * s);
 }
 
-Vector3 operator*(const float scalar, const Vector3& v)
+Vector3 operator*(const float s, const Vector3& v)
 {
-	return v * scalar;
+	return v * s;
 }
 
-Vector3 operator/(const Vector3& v, const float divisor)
+Vector3 operator*(const Vector3& v1, const Vector3& v2)
 {
-	if (0.0f == divisor)
+	return Vector3(v1.x() * v2.x(), 
+		v1.y() * v2.y(), 
+		v1.z() * v2.z());
+}
+
+Vector3 operator*(const Vector3& v, const Matrix4& m)
+{
+	// Ste - TODO
+	return Vector3();
+}
+
+Vector3 operator*(const Matrix4& m, const Vector3& v)
+{
+	return v * m;
+}
+
+Vector3 operator/(const Vector3& v, const float d)
+{
+	if (0.0f == d)
 	{
 		return Vector3();
 	}
 
-	return Vector3(v.x() / divisor, v.y() / divisor, v.z() / divisor);
+	return Vector3(v.x() / d, 
+		v.y() / d, 
+		v.z() / d);
 }
 
-Vector3 operator/(const float divisor, const Vector3& v)
+Vector3 operator/(const Vector3& v1, const Vector3& v2)
 {
-	return v / divisor;
+	return Vector3(v1.x() / v2.x(), 
+		v1.y() / v2.y(), 
+		v1.z() / v2.z());
 }
 
 Vector3 operator+(const Vector3& v1, const Vector3& v2)
 {
-	return Vector3(v1.x() + v2.x(), v1.y() + v2.y(), v1.z() + v2.z());
+	return Vector3(v1.x() + v2.x(), 
+		v1.y() + v2.y(), 
+		v1.z() + v2.z());
 }
 
 Vector3 operator-(const Vector3& v1, const Vector3& v2)
 {
-	return Vector3(v1.x() - v2.x(), v1.y() - v2.y(), v1.z() - v2.z());
+	return Vector3(v1.x() - v2.x(), 
+		v1.y() - v2.y(), 
+		v1.z() - v2.z());
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+class Matrix4;
+
 
 class Vector3
 {
@@ -10,13 +12,13 @@ public:
 
 	~Vector3();
 
-	Vector3& operator=(const Vector3& other);
-	Vector3& operator*=(const float scalar);
-	Vector3& operator/=(const float divisor);
-	Vector3& operator+=(const Vector3& other);
-	Vector3& operator-=(const Vector3& other);
-
-	// Ste - TODO - Matrix multiplication overload
+	Vector3& operator=(const Vector3& v);
+	Vector3& operator*=(const float s);
+	Vector3& operator*=(const Vector3& v);
+	Vector3& operator*=(const Matrix4& m);
+	Vector3& operator/=(const float d);
+	Vector3& operator+=(const Vector3& v);
+	Vector3& operator-=(const Vector3& v);
 
 	inline float x() const { return m_x; }
 	inline float y() const { return m_y; }
@@ -69,11 +71,12 @@ private:
 
 bool operator==(const Vector3& v1, const Vector3& v2);
 bool operator!=(const Vector3& v1, const Vector3& v2);
-Vector3 operator*(const Vector3& v, const float scalar);
-Vector3 operator*(const float scalar, const Vector3& v);
-Vector3 operator/(const Vector3& v, const float divisor);
-Vector3 operator/(const float divisor, const Vector3& v);
+Vector3 operator*(const Vector3& v, const float s);
+Vector3 operator*(const float s, const Vector3& v);
+Vector3 operator*(const Vector3& v1, const Vector3& v2);
+Vector3 operator*(const Vector3& v, const Matrix4& m);
+Vector3 operator*(const Matrix4& m, const Vector3& v);
+Vector3 operator/(const Vector3& v, const float d);
+Vector3 operator/(const Vector3& v1, const Vector3& v2);
 Vector3 operator+(const Vector3& v1, const Vector3& v2);
 Vector3 operator-(const Vector3& v1, const Vector3& v2);
-
-// Ste - TODO - Matrix multiplication overloads
