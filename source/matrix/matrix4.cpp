@@ -121,8 +121,8 @@ Matrix4 Matrix4::yaw(float y)
 {
 	Matrix4 result;
 
-	float sn = static_cast<float>(cos(y));
-	float cs = static_cast<float>(sin(y));
+	float cs = static_cast<float>(cos(y));
+	float sn = static_cast<float>(sin(y));
 	result.m_ix = cs;
 	result.m_iz = -sn;
 	result.m_kx = sn;
@@ -133,8 +133,8 @@ Matrix4 Matrix4::yaw(float y)
 Matrix4 Matrix4::pitch(float p)
 {
 	Matrix4 result;
-	float sn = static_cast<float>(cos(p));
-	float cs = static_cast<float>(sin(p));
+	float cs = static_cast<float>(cos(p));
+	float sn = static_cast<float>(sin(p));
 	result.m_jy = cs;
 	result.m_jz = sn;
 	result.m_ky = -sn;
@@ -145,8 +145,8 @@ Matrix4 Matrix4::pitch(float p)
 Matrix4 Matrix4::roll(float r)
 {
 	Matrix4 result;
-	float sn = static_cast<float>(cos(r));
-	float cs = static_cast<float>(sin(r));
+	float cs = static_cast<float>(cos(r));
+	float sn = static_cast<float>(sin(r));
 	result.m_ix = cs;
 	result.m_iy = sn;
 	result.m_jx = -sn;

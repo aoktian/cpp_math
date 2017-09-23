@@ -83,13 +83,12 @@ void Vector3UnitTest::vector3Test_TimesEqualsOperator()
 	assert(scaled.y() == 15.0f);
 	assert(scaled.z() == 20.0f);
 
-	// Ste - TODO - Fix:
-	//Matrix4 rotation = Matrix4::pitch(MathUtil::radians(90.0f));
-	//Vector3 rotated(10.0f, 10.0f, 10.0f);
-	//rotated *= rotation;
-	//assert(rotated.x() == 1337.0f);
-	//assert(rotated.y() == 1337.0f);
-	//assert(rotated.z() == 1337.0f);
+	Matrix4 rotation = Matrix4::pitch(MathUtil::radians(45.0f));
+	Vector3 rotated(10.0f, 10.0f, 0.0f);
+	rotated *= rotation;
+	assert(fabs(rotated.x() - 10.0f) < TOLERANCE);
+	assert(fabs(rotated.y() - 7.0710678f) < TOLERANCE);
+	assert(fabs(rotated.z() - 7.0710678f) < TOLERANCE);
 }
 
 void Vector3UnitTest::vector3Test_DivideEqualsOperator()
@@ -327,15 +326,19 @@ void Vector3UnitTest::vector3Test_MultiplyOperator()
 	assert((scale * scaled).y() == 15.0f);
 	assert((scale * scaled).z() == 20.0f);
 
-	// Ste - TODO - Fix:
-	//Matrix4 rotation = Matrix4::pitch(MathUtil::radians(90.0f));
-	//Vector3 rotated(10.0f, 10.0f, 10.0f);
-	//assert((rotated * rotation).x() == 1337.0f);
-	//assert((rotated * rotation).y() == 1337.0f);
-	//assert((rotated * rotation).z() == 1337.0f);
-	//assert((rotation * rotated).x() == 1337.0f);
-	//assert((rotation * rotated).y() == 1337.0f);
-	//assert((rotation * rotated).z() == 1337.0f);
+	Matrix4 yaw = Matrix4::yaw(MathUtil::radians(25.0f));
+	Matrix4 pitch = Matrix4::pitch(MathUtil::radians(80.0f));
+	Matrix4 roll = Matrix4::roll(MathUtil::radians(10.0f));
+	Vector3 rotate(10.0f, 10.0f, 10.0f);
+	assert(fabs((rotate * yaw).x() - 13.28926f) < TOLERANCE);
+	assert(fabs((rotate * yaw).y() - 10.0f) < TOLERANCE);
+	assert(fabs((rotate * yaw).z() - 4.836895f) < TOLERANCE);
+	assert(fabs((rotate * pitch).x() - 10.0f) < TOLERANCE);
+	assert(fabs((rotate * pitch).y() - -8.111595f) < TOLERANCE);
+	assert(fabs((rotate * pitch).z() - 11.58456f) < TOLERANCE);
+	assert(fabs((rotate * roll).x() - 8.111596f) < TOLERANCE);
+	assert(fabs((rotate * roll).y() - 11.584559f) < TOLERANCE);
+	assert(fabs((rotate * roll).z() - 10.0f) < TOLERANCE);
 }
 
 void Vector3UnitTest::vector3Test_DivisionOperator()

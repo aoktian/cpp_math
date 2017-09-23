@@ -251,9 +251,10 @@ Vector3 operator*(const Vector3& v1, const Vector3& v2)
 
 Vector3 operator*(const Vector3& v, const Matrix4& m)
 {
-	return Vector3(v.x() * m.m_ix + v.y() * m.m_jx + v.z() * m.m_kx + m.m_tx,
+	Vector3 ret = Vector3(v.x() * m.m_ix + v.y() * m.m_jx + v.z() * m.m_kx + m.m_tx,
 		v.x() * m.m_iy + v.y() * m.m_jy + v.z() * m.m_ky + m.m_ty,
 		v.x() * m.m_iz + v.y() * m.m_jz + v.z() * m.m_kz + m.m_tz);
+	return ret;
 }
 
 Vector3 operator*(const Matrix4& m, const Vector3& v)
