@@ -2,6 +2,7 @@
 
 #include <assert.h>
 #include <math.h>
+#include "../matrix/matrix4.h"
 #include "../utility/mathUtility.h"
 
 
@@ -57,6 +58,38 @@ void Vector3UnitTest::vector3Test_TimesEqualsOperator()
 	assert(v1.x() == 20.0f);
 	assert(v1.y() == 40.0f);
 	assert(v1.z() == 100.0f);
+
+	Vector3 v2(1.0f, 2.0f, 3.0f);
+	Vector3 v3(4.0f, 5.0f, 6.0f);
+	v2 *= v3;
+	assert(v2.x() == 4.0f);
+	assert(v2.y() == 10.0f);
+	assert(v2.z() == 18.0f);
+	assert(v3.x() == 4.0f);
+	assert(v3.y() == 5.0f);
+	assert(v3.z() == 6.0f);
+
+	Matrix4 translation = Matrix4::translation(10.0f, 5.0f, 0.0f);
+	Vector3 translated(0.0f, 0.0f, 0.0f);
+	translated *= translation;
+	assert(translated.x() == 10.0f);
+	assert(translated.y() == 5.0f);
+	assert(translated.z() == 0.0f);
+
+	Matrix4 scale = Matrix4::scale(1.0f, 1.5f, 2.0f);
+	Vector3 scaled(10.0f, 10.0f, 10.0f);
+	scaled *= scale;
+	assert(scaled.x() == 10.0f);
+	assert(scaled.y() == 15.0f);
+	assert(scaled.z() == 20.0f);
+
+	// Ste - TODO - Fix:
+	//Matrix4 rotation = Matrix4::pitch(MathUtil::radians(90.0f));
+	//Vector3 rotated(10.0f, 10.0f, 10.0f);
+	//rotated *= rotation;
+	//assert(rotated.x() == 1337.0f);
+	//assert(rotated.y() == 1337.0f);
+	//assert(rotated.z() == 1337.0f);
 }
 
 void Vector3UnitTest::vector3Test_DivideEqualsOperator()
@@ -269,6 +302,40 @@ void Vector3UnitTest::vector3Test_MultiplyOperator()
 	assert((v1 * 0.25).x() == 2.5f);
 	assert((v1 * 0.25).y() == 5.0f);
 	assert((v1 * 0.25).z() == 12.5f);
+
+	Vector3 v2(1.0f, 2.0f, 3.0f);
+	Vector3 v3(4.0f, 5.0f, 6.0f);
+	assert((v2 * v3).x() == 4.0f);
+	assert((v2 * v3).y() == 10.0f);
+	assert((v2 * v3).z() == 18.0f);
+	
+	Matrix4 translation = Matrix4::translation(10.0f, 5.0f, 0.0f);
+	Vector3 translated(0.0f, 0.0f, 0.0f);
+	assert((translated * translation).x() == 10.0f);
+	assert((translated * translation).y() == 5.0f);
+	assert((translated * translation).z() == 0.0f);
+	assert((translation * translated).x() == 10.0f);
+	assert((translation * translated).y() == 5.0f);
+	assert((translation * translated).z() == 0.0f);
+
+	Matrix4 scale = Matrix4::scale(1.0f, 1.5f, 2.0f);
+	Vector3 scaled(10.0f, 10.0f, 10.0f);
+	assert((scaled * scale).x() == 10.0f);
+	assert((scaled * scale).y() == 15.0f);
+	assert((scaled * scale).z() == 20.0f);
+	assert((scale * scaled).x() == 10.0f);
+	assert((scale * scaled).y() == 15.0f);
+	assert((scale * scaled).z() == 20.0f);
+
+	// Ste - TODO - Fix:
+	//Matrix4 rotation = Matrix4::pitch(MathUtil::radians(90.0f));
+	//Vector3 rotated(10.0f, 10.0f, 10.0f);
+	//assert((rotated * rotation).x() == 1337.0f);
+	//assert((rotated * rotation).y() == 1337.0f);
+	//assert((rotated * rotation).z() == 1337.0f);
+	//assert((rotation * rotated).x() == 1337.0f);
+	//assert((rotation * rotated).y() == 1337.0f);
+	//assert((rotation * rotated).z() == 1337.0f);
 }
 
 void Vector3UnitTest::vector3Test_DivisionOperator()

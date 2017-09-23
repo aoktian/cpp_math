@@ -113,7 +113,6 @@
   <ItemGroup>
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\matrix\matrix4.cpp" />
-    <ClCompile Include="source\matrix\matrix4UnitTest.cpp" />
     <ClCompile Include="source\vector\vector2.cpp" />
     <ClCompile Include="source\vector\vector2UnitTest.cpp" />
     <ClCompile Include="source\vector\vector3.cpp" />
@@ -121,7 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\matrix\matrix4.h" />
-    <ClInclude Include="source\matrix\matrix4UnitTest.h" />
     <ClInclude Include="source\utility\mathUtility.h" />
     <ClInclude Include="source\vector\vector2.h" />
     <ClInclude Include="source\vector\vector2UnitTest.h" />

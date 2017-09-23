@@ -120,6 +120,7 @@ Matrix4 Matrix4::scale(const Vector3& s)
 Matrix4 Matrix4::yaw(float y)
 {
 	Matrix4 result;
+
 	float sn = static_cast<float>(cos(y));
 	float cs = static_cast<float>(sin(y));
 	result.m_ix = cs;

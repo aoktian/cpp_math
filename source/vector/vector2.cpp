@@ -100,13 +100,13 @@ void Vector2::set(const Vector2& other)
 	m_dirty = true;
 }
 
-float Vector2::lengthSq()
+float Vector2::lengthSq() const
 {
 	updateCache();
 	return m_lengthSq;
 }
 
-float Vector2::length()
+float Vector2::length() const
 {
 	updateCache();
 	return m_length;
@@ -120,7 +120,7 @@ void Vector2::normalise()
 	m_dirty = true;
 }
 
-Vector2 Vector2::normalised()
+Vector2 Vector2::normalised() const
 {
 	updateCache();
 	return Vector2(m_unitX, m_unitY);
@@ -138,14 +138,14 @@ void Vector2::rotate(float degrees)
 	m_dirty = true;
 }
 
-Vector2 Vector2::rotated(float degrees)
+Vector2 Vector2::rotated(float degrees) const
 {
 	Vector2 r(m_x, m_y);
 	r.rotate(degrees);
 	return r;
 }
 
-void Vector2::updateCache()
+void Vector2::updateCache() const
 {
 	if (m_dirty)
 	{

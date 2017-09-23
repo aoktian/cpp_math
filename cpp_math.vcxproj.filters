@@ -17,9 +17,6 @@
     <ClCompile Include="source\vector\vector3UnitTest.cpp">
       <Filter>vector</Filter>
     </ClCompile>
-    <ClCompile Include="source\matrix\matrix4UnitTest.cpp">
-      <Filter>matrix</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vector">
@@ -53,9 +50,6 @@
     </ClInclude>
     <ClInclude Include="source\vector\vector3UnitTest.h">
       <Filter>vector</Filter>
-    </ClInclude>
-    <ClInclude Include="source\matrix\matrix4UnitTest.h">
-      <Filter>matrix</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

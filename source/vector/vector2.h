@@ -25,14 +25,14 @@ public:
 	void set(float val);
 	void set(const Vector2& other);
 
-	float lengthSq();
-	float length();
+	float lengthSq() const;
+	float length() const;
 
 	void normalise();
-	Vector2 normalised();
+	Vector2 normalised() const;
 	
 	void rotate(float degrees);
-	Vector2 rotated(float degrees);
+	Vector2 rotated(float degrees) const;
 
 private:
 
@@ -40,17 +40,17 @@ private:
 	float m_y;
 
 	// Cached length, length squared
-	float m_lengthSq;
-	float m_length;
+	mutable float m_lengthSq;
+	mutable float m_length;
 
 	// Cached unit vector values
-	float m_unitX;
-	float m_unitY;
+	mutable float m_unitX;
+	mutable float m_unitY;
 
 	// Dirty flag for cached unit vector, lengthSq, length
-	bool m_dirty;
+	mutable bool m_dirty;
 	
-	void updateCache();
+	void updateCache() const;
 
 };
 

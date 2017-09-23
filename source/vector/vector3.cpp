@@ -52,7 +52,13 @@ Vector3& Vector3::operator*=(const Vector3& v)
 
 Vector3& Vector3::operator*=(const Matrix4& m)
 {
-	// Ste - TODO
+	float x = m_x * m.m_ix + m_y * m.m_jx + m_z * m.m_kx + m.m_tx;
+	float y = m_x * m.m_iy + m_y * m.m_jy + m_z * m.m_ky + m.m_ty;
+	float z = m_x * m.m_iz + m_y * m.m_jz + m_z * m.m_kz + m.m_tz;
+	m_x = x;
+	m_y = y;
+	m_z = z;
+
 	m_dirty = true;
 	return *this;
 }
@@ -245,8 +251,9 @@ Vector3 operator*(const Vector3& v1, const Vector3& v2)
 
 Vector3 operator*(const Vector3& v, const Matrix4& m)
 {
-	// Ste - TODO
-	return Vector3();
+	return Vector3(v.x() * m.m_ix + v.y() * m.m_jx + v.z() * m.m_kx + m.m_tx,
+		v.x() * m.m_iy + v.y() * m.m_jy + v.z() * m.m_ky + m.m_ty,
+		v.x() * m.m_iz + v.y() * m.m_jz + v.z() * m.m_kz + m.m_tz);
 }
 
 Vector3 operator*(const Matrix4& m, const Vector3& v)
