@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include "../matrix/matrix4.h"
+#include "../quaternion/quaternion.h"
 #include "../utility/mathUtility.h"
 
 
@@ -58,6 +59,14 @@ Vector3& Vector3::operator*=(const Matrix4& m)
 	m_x = x;
 	m_y = y;
 	m_z = z;
+
+	m_dirty = true;
+	return *this;
+}
+
+Vector3& Vector3::operator*=(const Quaternion& q)
+{
+	// Ste - TODO + unit test
 
 	m_dirty = true;
 	return *this;
@@ -260,6 +269,17 @@ Vector3 operator*(const Vector3& v, const Matrix4& m)
 Vector3 operator*(const Matrix4& m, const Vector3& v)
 {
 	return v * m;
+}
+
+Vector3 operator*(const Vector3& v, const Quaternion& q)
+{
+	// Ste - TODO + unit test (v * q, q * v)
+	return v;
+}
+
+Vector3 operator*(const Quaternion& q, const Vector3& v)
+{
+	return v * q;
 }
 
 Vector3 operator/(const Vector3& v, const float d)

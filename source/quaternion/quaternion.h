@@ -3,12 +3,11 @@
 class Vector3;
 
 
-// Ste - TODO [http://wiki.roblox.com/index.php?title=Quaternions_for_rotation]
 class Quaternion
 {
 public:
 
-	Quaternion();
+	Quaternion(float w = 1.0f, float x = 0.0f, float y = 0.0f, float z = 0.0f);
 	Quaternion(const Vector3& axis, const float angle);
 	Quaternion(const Quaternion& other);
 	~Quaternion();
@@ -20,14 +19,12 @@ private:
 	friend bool operator==(const Quaternion& v1, const Quaternion& v2);
 	friend bool operator!=(const Quaternion& v1, const Quaternion& v2);
 
-	void set(float w, float x, float y, float z);
+	void create(float w, float x, float y, float z);
 
 	float m_w;
 	float m_x;
 	float m_y;
 	float m_z;
-
-	// Ste - TODO - mutable lazy evaluation values
 
 };
 
