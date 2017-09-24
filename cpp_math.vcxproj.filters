@@ -17,6 +17,9 @@
     <ClCompile Include="source\vector\vector3UnitTest.cpp">
       <Filter>vector</Filter>
     </ClCompile>
+    <ClCompile Include="source\quaternion\quaternion.cpp">
+      <Filter>quaternion</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="vector">
@@ -50,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="source\vector\vector3UnitTest.h">
       <Filter>vector</Filter>
+    </ClInclude>
+    <ClInclude Include="source\quaternion\quaternion.h">
+      <Filter>quaternion</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
