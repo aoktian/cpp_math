@@ -4,6 +4,7 @@
 #include <math.h>
 #include "../matrix/matrix4.h"
 #include "../utility/mathUtility.h"
+#include "../quaternion/quaternion.h"
 
 
 const float Vector3UnitTest::TOLERANCE = 0.000001f;
@@ -89,6 +90,13 @@ void Vector3UnitTest::vector3Test_TimesEqualsOperator()
 	assert(fabs(rotated.x() - 10.0f) < TOLERANCE);
 	assert(fabs(rotated.y() - 7.0710678f) < TOLERANCE);
 	assert(fabs(rotated.z() - 7.0710678f) < TOLERANCE);
+
+	Quaternion quat(MathUtil::radians(45.0f), 1.0f, 0.0f, 0.0f);
+	Vector3 qRotated(10.0f, 10.0f, 0.0f);
+	qRotated *= quat;
+	assert(fabs(qRotated.x() - 10.0f) < TOLERANCE);
+	assert(fabs(qRotated.y() - 7.0710678f) < TOLERANCE);
+	assert(fabs(qRotated.z() - 7.0710678f) < TOLERANCE);
 }
 
 void Vector3UnitTest::vector3Test_DivideEqualsOperator()
@@ -339,6 +347,12 @@ void Vector3UnitTest::vector3Test_MultiplyOperator()
 	assert(fabs((rotate * roll).x() - 8.111596f) < TOLERANCE);
 	assert(fabs((rotate * roll).y() - 11.584559f) < TOLERANCE);
 	assert(fabs((rotate * roll).z() - 10.0f) < TOLERANCE);
+
+	Quaternion quat(MathUtil::radians(25.0f), 0.0f, 1.0f, 0.0f);
+	Vector3 qRotated(10.0f, 10.0f, 0.0f);
+	assert(fabs((qRotated * quat).x() - 13.28926f) < TOLERANCE);
+	assert(fabs((qRotated * quat).y() - 10.0f) < TOLERANCE);
+	assert(fabs((qRotated * quat).z() - 4.836895f) < TOLERANCE);
 }
 
 void Vector3UnitTest::vector3Test_DivisionOperator()

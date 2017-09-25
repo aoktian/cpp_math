@@ -65,8 +65,14 @@ Vector3& Vector3::operator*=(const Matrix4& m)
 }
 
 Vector3& Vector3::operator*=(const Quaternion& q)
-{
-	// Ste - TODO + unit test
+{	
+	Vector3 u(q.x(), q.y(), q.z());
+	Vector3 v = *this;
+	float s(q.w());
+	
+	set(2.0f * dotProduct(u, v) * u +
+		(s * s - dotProduct(u, u)) * v +
+		2.0f * s * crossProduct(u, v));
 
 	m_dirty = true;
 	return *this;
@@ -273,8 +279,12 @@ Vector3 operator*(const Matrix4& m, const Vector3& v)
 
 Vector3 operator*(const Vector3& v, const Quaternion& q)
 {
-	// Ste - TODO + unit test (v * q, q * v)
-	return v;
+	Vector3 u(q.x(), q.y(), q.z());
+	float s(q.w());
+
+	return Vector3(2.0f * Vector3::dotProduct(u, v) * u +
+		(s * s - Vector3::dotProduct(u, u)) * v +
+		2.0f * s * Vector3::crossProduct(u, v));
 }
 
 Vector3 operator*(const Quaternion& q, const Vector3& v)

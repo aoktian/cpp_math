@@ -1,13 +1,14 @@
 #include "quaternion.h"
 
+#include <math.h>
 #include "../vector/vector3.h"
 
 Quaternion::Quaternion(float w /* = 1.0f */, float x /* = 0.0f */, float y /* = 0.0f */, float z /* = 0.0f */)
 {
-	create(w, x, y, z);
+	createUnit(w, x, y, z);
 }
 
-Quaternion::Quaternion(const Vector3& axis, const float angle)
+Quaternion::Quaternion(const float angle, const Vector3& axis)
 	: Quaternion(angle, axis.x(), axis.y(), axis.z())
 {
 }
@@ -34,20 +35,13 @@ Quaternion& Quaternion::operator=(const Quaternion& other)
 	return *this;
 }
 
-void Quaternion::create(float w, float x, float y, float z)
+void Quaternion::createUnit(float w, float x, float y, float z)
 {
-	// Ste - TODO - calculate values here!
-	// [http://wiki.roblox.com/index.php?title=Quaternions_for_rotation]
-	float qw = 0.0f;
-	float qx = 0.0f;
-	float qy = 0.0f;
-	float qz = 0.0f;
-	// ----------
-
-	m_w = qw;
-	m_x = qx;
-	m_y = qy;
-	m_z = qz;
+	m_w = static_cast<float>(cos(w * 0.5f));
+	float sn = static_cast<float>(sin(w * 0.5f));
+	m_x = sn * x;
+	m_y = sn * y;
+	m_z = sn * z;
 }
 
 
