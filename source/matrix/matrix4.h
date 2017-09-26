@@ -38,6 +38,8 @@ private:
 
 	friend class Vector3;
 	friend Vector3 operator*(const Vector3& v, const Matrix4& m);
+
+	friend class Quaternion;
 	
 	float m_ix, m_jx, m_kx, m_tx;
 	float m_iy, m_jy, m_ky, m_ty;

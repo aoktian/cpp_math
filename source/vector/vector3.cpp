@@ -64,20 +64,6 @@ Vector3& Vector3::operator*=(const Matrix4& m)
 	return *this;
 }
 
-Vector3& Vector3::operator*=(const Quaternion& q)
-{	
-	Vector3 u(q.x(), q.y(), q.z());
-	Vector3 v = *this;
-	float s(q.w());
-	
-	set(2.0f * dotProduct(u, v) * u +
-		(s * s - dotProduct(u, u)) * v +
-		2.0f * s * crossProduct(u, v));
-
-	m_dirty = true;
-	return *this;
-}
-
 Vector3& Vector3::operator/=(const float d)
 {
 	if (0.0f == d)
@@ -182,12 +168,15 @@ void Vector3::updateCache() const
 {
 	if (m_dirty)
 	{
-		m_lengthSq = m_x * m_x + m_y * m_y + m_z * m_z;
+		m_lengthSq = m_x * m_x + 
+			m_y * m_y + 
+			m_z * m_z;
 		m_length = static_cast<float>(sqrt(m_lengthSq));
 
-		m_unitX = m_length != 0.0f ? m_x / m_length : 0.0f;
-		m_unitY = m_length != 0.0f ? m_y / m_length : 0.0f;
-		m_unitZ = m_length != 0.0f ? m_z / m_length : 0.0f;
+		float inv = 1.0f / m_length;
+		m_unitX = m_length != 0.0f ? m_x * inv : 0.0f;
+		m_unitY = m_length != 0.0f ? m_y * inv : 0.0f;
+		m_unitZ = m_length != 0.0f ? m_z * inv : 0.0f;
 
 		m_dirty = false;
 	}

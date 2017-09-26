@@ -17,7 +17,6 @@ public:
 	Vector3& operator*=(const float s);
 	Vector3& operator*=(const Vector3& v);
 	Vector3& operator*=(const Matrix4& m);
-	Vector3& operator*=(const Quaternion& q);	
 	Vector3& operator/=(const float d);
 	Vector3& operator+=(const Vector3& v);
 	Vector3& operator-=(const Vector3& v);
@@ -78,7 +77,6 @@ Vector3 operator*(const float s, const Vector3& v);
 Vector3 operator*(const Vector3& v1, const Vector3& v2);
 Vector3 operator*(const Vector3& v, const Matrix4& m);
 Vector3 operator*(const Matrix4& m, const Vector3& v);
-Vector3 operator*(const Vector3& v, const Quaternion& q);
 Vector3 operator*(const Quaternion& q, const Vector3& v);
 Vector3 operator/(const Vector3& v, const float d);
 Vector3 operator/(const Vector3& v1, const Vector3& v2);

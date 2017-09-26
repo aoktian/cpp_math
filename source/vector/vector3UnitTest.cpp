@@ -7,7 +7,7 @@
 #include "../quaternion/quaternion.h"
 
 
-const float Vector3UnitTest::TOLERANCE = 0.000001f;
+const float Vector3UnitTest::TOLERANCE = 0.00001f;
 
 void Vector3UnitTest::vector3Test_DefaultConstructor()
 {
@@ -88,15 +88,15 @@ void Vector3UnitTest::vector3Test_TimesEqualsOperator()
 	Vector3 rotated(10.0f, 10.0f, 0.0f);
 	rotated *= rotation;
 	assert(fabs(rotated.x() - 10.0f) < TOLERANCE);
-	assert(fabs(rotated.y() - 7.0710678f) < TOLERANCE);
-	assert(fabs(rotated.z() - 7.0710678f) < TOLERANCE);
+	assert(fabs(rotated.y() - 7.07106f) < TOLERANCE);
+	assert(fabs(rotated.z() - 7.07106f) < TOLERANCE);
 
-	Quaternion quat(MathUtil::radians(45.0f), 1.0f, 0.0f, 0.0f);
+	Quaternion quat(MathUtil::radians(45.0f), Vector3(1.0f, 0.0f, 0.0f));
 	Vector3 qRotated(10.0f, 10.0f, 0.0f);
-	qRotated *= quat;
+	qRotated *= quat.rotationMatrix();
 	assert(fabs(qRotated.x() - 10.0f) < TOLERANCE);
-	assert(fabs(qRotated.y() - 7.0710678f) < TOLERANCE);
-	assert(fabs(qRotated.z() - 7.0710678f) < TOLERANCE);
+	assert(fabs(qRotated.y() - 7.07106f) < TOLERANCE);
+	assert(fabs(qRotated.z() - 7.07106f) < TOLERANCE);
 }
 
 void Vector3UnitTest::vector3Test_DivideEqualsOperator()
@@ -238,10 +238,10 @@ void Vector3UnitTest::vector3Test_DotProduct()
 	
 	v1.set(100.0f, 50.0f, 25.0f);
 	v2.set(25.0f, 50.0f, 100.0f);
-	assert(fabs(v1.dotProduct(v2) - 0.5714285f) < TOLERANCE);
-	assert(fabs(Vector3::dotProduct(v1, v2) - 0.5714285f) < TOLERANCE);
-	assert(fabs(v2.dotProduct(v1) - 0.5714285f) < TOLERANCE);
-	assert(fabs(Vector3::dotProduct(v2, v1) - 0.5714285f) < TOLERANCE);
+	assert(fabs(v1.dotProduct(v2) - 0.57142f) < TOLERANCE);
+	assert(fabs(Vector3::dotProduct(v1, v2) - 0.57142f) < TOLERANCE);
+	assert(fabs(v2.dotProduct(v1) - 0.57142f) < TOLERANCE);
+	assert(fabs(Vector3::dotProduct(v2, v1) - 0.57142f) < TOLERANCE);
 }
 
 void Vector3UnitTest::vector3Test_CrossProduct()
@@ -318,41 +318,49 @@ void Vector3UnitTest::vector3Test_MultiplyOperator()
 	
 	Matrix4 translation = Matrix4::translation(10.0f, 5.0f, 0.0f);
 	Vector3 translated(0.0f, 0.0f, 0.0f);
-	assert((translated * translation).x() == 10.0f);
-	assert((translated * translation).y() == 5.0f);
-	assert((translated * translation).z() == 0.0f);
-	assert((translation * translated).x() == 10.0f);
-	assert((translation * translated).y() == 5.0f);
-	assert((translation * translated).z() == 0.0f);
+	Vector3 tRes1 = translated * translation;
+	Vector3 tRes2 = translation * translated;
+	assert(tRes1.x() == 10.0f);
+	assert(tRes1.y() == 5.0f);
+	assert(tRes1.z() == 0.0f);
+	assert(tRes2.x() == 10.0f);
+	assert(tRes2.y() == 5.0f);
+	assert(tRes2.z() == 0.0f);
 
 	Matrix4 scale = Matrix4::scale(1.0f, 1.5f, 2.0f);
 	Vector3 scaled(10.0f, 10.0f, 10.0f);
-	assert((scaled * scale).x() == 10.0f);
-	assert((scaled * scale).y() == 15.0f);
-	assert((scaled * scale).z() == 20.0f);
-	assert((scale * scaled).x() == 10.0f);
-	assert((scale * scaled).y() == 15.0f);
-	assert((scale * scaled).z() == 20.0f);
+	Vector3 sRes1 = scaled * scale;
+	Vector3 sRes2 = scaled * scale;
+	assert(sRes1.x() == 10.0f);
+	assert(sRes1.y() == 15.0f);
+	assert(sRes1.z() == 20.0f);
+	assert(sRes2.x() == 10.0f);
+	assert(sRes2.y() == 15.0f);
+	assert(sRes2.z() == 20.0f);
 
 	Matrix4 yaw = Matrix4::yaw(MathUtil::radians(25.0f));
 	Matrix4 pitch = Matrix4::pitch(MathUtil::radians(80.0f));
 	Matrix4 roll = Matrix4::roll(MathUtil::radians(10.0f));
 	Vector3 rotate(10.0f, 10.0f, 10.0f);
-	assert(fabs((rotate * yaw).x() - 13.28926f) < TOLERANCE);
-	assert(fabs((rotate * yaw).y() - 10.0f) < TOLERANCE);
-	assert(fabs((rotate * yaw).z() - 4.836895f) < TOLERANCE);
-	assert(fabs((rotate * pitch).x() - 10.0f) < TOLERANCE);
-	assert(fabs((rotate * pitch).y() - -8.111595f) < TOLERANCE);
-	assert(fabs((rotate * pitch).z() - 11.58456f) < TOLERANCE);
-	assert(fabs((rotate * roll).x() - 8.111596f) < TOLERANCE);
-	assert(fabs((rotate * roll).y() - 11.584559f) < TOLERANCE);
-	assert(fabs((rotate * roll).z() - 10.0f) < TOLERANCE);
-
+	Vector3 yRes = rotate * yaw;
+	assert(fabs(yRes.x() - 13.28926f) < TOLERANCE);
+	assert(fabs(yRes.y() - 10.0f) < TOLERANCE);
+	assert(fabs(yRes.z() - 4.83689f) < TOLERANCE);
+	Vector3 pRes = rotate * pitch;
+	assert(fabs(pRes.x() - 10.0f) < TOLERANCE);
+	assert(fabs(pRes.y() - -8.11159f) < TOLERANCE);
+	assert(fabs(pRes.z() - 11.58456f) < TOLERANCE);
+	Vector3 rRes = roll * rotate;
+	assert(fabs(rRes.x() - 8.11159f) < TOLERANCE);
+	assert(fabs(rRes.y() - 11.58455f) < TOLERANCE);
+	assert(fabs(rRes.z() - 10.0f) < TOLERANCE);
+	
 	Quaternion quat(MathUtil::radians(25.0f), 0.0f, 1.0f, 0.0f);
-	Vector3 qRotated(10.0f, 10.0f, 0.0f);
-	assert(fabs((qRotated * quat).x() - 13.28926f) < TOLERANCE);
-	assert(fabs((qRotated * quat).y() - 10.0f) < TOLERANCE);
-	assert(fabs((qRotated * quat).z() - 4.836895f) < TOLERANCE);
+	Vector3 qRotate(10.0f, 10.0f, 10.0f);
+	Vector3 qRes = qRotate * quat.rotationMatrix();
+	assert(fabs(qRes.x() - 13.28926f) < TOLERANCE);
+	assert(fabs(qRes.y() - 10.0f) < TOLERANCE);
+	assert(fabs(qRes.z() - 4.836895f) < TOLERANCE);
 }
 
 void Vector3UnitTest::vector3Test_DivisionOperator()

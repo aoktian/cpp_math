@@ -1,5 +1,6 @@
 #pragma once
 
+class Matrix4;
 class Vector3;
 
 
@@ -7,8 +8,8 @@ class Quaternion
 {
 public:
 
-	Quaternion(float w = 1.0f, float x = 0.0f, float y = 0.0f, float z = 0.0f);
-	Quaternion(const float angle, const Vector3& axis);
+	Quaternion(float radians = 0.0f, float x = 0.0f, float y = 0.0f, float z = 0.0f);
+	Quaternion(const float radians, const Vector3& axis);
 	Quaternion(const Quaternion& other);
 	~Quaternion();
 
@@ -19,12 +20,16 @@ public:
 	inline float y() const { return m_y; }
 	inline float z() const { return m_z; }
 
+	Matrix4 rotationMatrix() const;
+
 private:
 
 	friend bool operator==(const Quaternion& v1, const Quaternion& v2);
 	friend bool operator!=(const Quaternion& v1, const Quaternion& v2);
 
-	void createUnit(float w, float x, float y, float z);
+	void createUnit(float radians, const Vector3& axis);
+	void createUnit(float radians, float x, float y, float z);
+	void normalise();
 
 	float m_w;
 	float m_x;
